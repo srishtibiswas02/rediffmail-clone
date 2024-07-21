@@ -84,14 +84,18 @@ body{
     flex-direction: column;
     border: 1px solid #c3c3c3;
     width: 300px;
+    /* flex-wrap: wrap; */
 }
 .card_item h4{
     color: orangered;
     text-decoration: underline;
 }
+
 .headlines a{
     text-decoration: none;
     color: black;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .top_container{
