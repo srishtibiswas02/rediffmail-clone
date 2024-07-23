@@ -7,11 +7,11 @@ body{
 .upper_bar{
     /* align-self: center; */
     background: #F3F3F3;
-    margin: 10px;
-    margin-left: 200px;
+    margin: 13px 10px 10px 200px;
+    /* margin-left: 200px; */
     display: flex;
     width: 1000px;
-    height: 100px;
+    height: 130px;
     justify-content:space-evenly;
     box-shadow:  0 0 10px #c4c4c4;
 }
@@ -140,3 +140,5 @@ ul li a{
     text-decoration: none;
     color: black;
 }
+
+
