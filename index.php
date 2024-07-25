@@ -78,7 +78,8 @@
             <div class="error_msg">
                 <?php echo $error_msg; ?>
             </div>
-            <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+            <!-- <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST"> -->
+            <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
             <!-- <form action="login.php" method="POST"> -->
                 <table>
                     
